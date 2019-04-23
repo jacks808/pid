@@ -38,6 +38,27 @@ int main() {
    * Initialize the pid variable.
    */
   pid.Init(0.15, 0.00001, 2.5);
+  /*
+   * How to choose PID parameters:
+   * 1. Set I and D to 0
+   * 2. Choose a P value, make it not over shot and not close too slow.
+   *    After some test, The vehicle should keep track the line, but still have some constantly error.
+   *    Finally 0.15 is my choice.
+   * 3. Add I parameter to controller. make the vehicle handle the constant error.
+   *    But in this time, after add I parameter, this vehicle will have a little bit over shot.
+   *    And that's OK, P parameter will fix this.
+   *    finally 0.00001 is my choice.
+   * 4. Add D parameter, this parameter will make my vehicle keep stay close with the track without
+   *    over shot or approximate too slow.
+   *    Finally 2.5 is my choice.
+   *
+   * BTW, I have been use this popular controller in my quadcopter.
+   * So I just chooice those parameter by experience.
+   *
+   * And it's is very thankful for me that you can provide such a useful method like twiddle, SGD, etc.
+   * to choose PID parameter automatically.
+   *
+   */
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
